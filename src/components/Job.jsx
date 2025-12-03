@@ -1,5 +1,6 @@
-import { Row, Col } from "react-bootstrap"
+import { Row, Col, Modal, Button } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 const Job = ({ data }) => {
@@ -8,6 +9,8 @@ const Job = ({ data }) => {
 
   // controlliamo se questa company è già nei preferiti
   const isFavourite = favourites.includes(data.company_name)
+
+  const [showModal, setShowModal] = useState(false)
 
   return (
     <Row
@@ -29,10 +32,7 @@ const Job = ({ data }) => {
           }}
           onClick={() => {
             if (isFavourite) {
-              dispatch({
-                type: "REMOVE_FAVOURITE",
-                payload: data.company_name,
-              })
+              setShowModal(true)
             } else {
               dispatch({
                 type: "ADD_FAVOURITE",
@@ -48,6 +48,37 @@ const Job = ({ data }) => {
           {data.title}
         </a>
       </Col>
+
+      {/* MODALE DI CONFERMA */}
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Rimuovere dai preferiti?</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          Vuoi davvero rimuovere <strong>{data.company_name}</strong> dai
+          preferiti?
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Annulla
+          </Button>
+
+          <Button
+            variant="danger"
+            onClick={() => {
+              dispatch({
+                type: "REMOVE_FAVOURITE",
+                payload: data.company_name,
+              })
+              setShowModal(false)
+            }}
+          >
+            Rimuovi
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Row>
   )
 }

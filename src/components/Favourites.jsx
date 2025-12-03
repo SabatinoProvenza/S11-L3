@@ -1,9 +1,13 @@
 import { useSelector, useDispatch } from "react-redux"
-import { Container, Row, Col, Button } from "react-bootstrap"
+import { Container, Row, Col, Button, Modal } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import { useState } from "react"
 
 const Favourites = () => {
   const favourites = useSelector((state) => state.prefs.content)
+  const [selectedCompany, setSelectedCompany] = useState(null)
+
+  const [showModal, setShowModal] = useState(false)
   const dispatch = useDispatch()
 
   if (favourites.length === 0) {
@@ -33,12 +37,10 @@ const Favourites = () => {
                   variant="outline-danger"
                   className="my-1"
                   size="sm"
-                  onClick={() =>
-                    dispatch({
-                      type: "REMOVE_FAVOURITE",
-                      payload: company,
-                    })
-                  }
+                  onClick={() => {
+                    setSelectedCompany(company)
+                    setShowModal(true)
+                  }}
                 >
                   <i className="bi bi-trash"></i> Remove
                 </Button>
@@ -46,6 +48,37 @@ const Favourites = () => {
             ))}
           </ul>
         </Col>
+
+        {/* MODALE DI CONFERMA */}
+        <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Rimuovere dai preferiti?</Modal.Title>
+          </Modal.Header>
+
+          <Modal.Body>
+            Vuoi davvero rimuovere <strong>{selectedCompany}</strong> dai
+            preferiti?
+          </Modal.Body>
+
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => setShowModal(false)}>
+              Annulla
+            </Button>
+
+            <Button
+              variant="danger"
+              onClick={() => {
+                dispatch({
+                  type: "REMOVE_FAVOURITE",
+                  payload: selectedCompany,
+                })
+                setShowModal(false)
+              }}
+            >
+              Rimuovi
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </Row>
     </Container>
   )
