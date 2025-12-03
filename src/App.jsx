@@ -5,14 +5,19 @@ import CompanySearchResults from "./components/CompanySearchResults"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { Provider } from "react-redux"
 import store from "./redux/store"
+import Favourites from "./components/Favourites"
+import MyNavbar from "./components/MyNavbar"
+import "bootstrap-icons/font/bootstrap-icons.css"
 
 function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
+        <MyNavbar />
         <Routes>
           <Route path="/" element={<MainSearch />} />
           <Route path="/:company" element={<CompanySearchResults />} />
+          <Route path="/favourites" element={<Favourites />} />
         </Routes>
       </BrowserRouter>
     </Provider>
