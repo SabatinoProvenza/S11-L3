@@ -14,21 +14,19 @@ const Job = ({ data }) => {
 
   return (
     <Row
-      className="mx-0 mt-3 p-3"
+      className="mx-0 mt-3 p-3 align-items-center"
       style={{ border: "1px solid #00000033", borderRadius: 4 }}
     >
-      <Col xs={3}>
+      <Col xs={5}>
         <Link to={`/${data.company_name}`}>{data.company_name}</Link>
-      </Col>
-
-      <Col xs={2}>
         <i
           className={
             isFavourite ? "bi bi-heart-fill text-danger" : "bi bi-heart"
           }
           style={{
-            fontSize: "1.6rem",
+            fontSize: "1rem",
             cursor: "pointer",
+            marginLeft: "8px",
           }}
           onClick={() => {
             if (isFavourite) {
