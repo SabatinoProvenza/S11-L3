@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { Container, Row, Col, Button, Modal } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { useState } from "react"
+import { removeFavouriteAction } from "../redux/actions"
 
 const Favourites = () => {
   const favourites = useSelector((state) => state.prefs.content)
@@ -68,10 +69,7 @@ const Favourites = () => {
             <Button
               variant="danger"
               onClick={() => {
-                dispatch({
-                  type: "REMOVE_FAVOURITE",
-                  payload: selectedCompany,
-                })
+                dispatch(removeFavouriteAction(selectedCompany))
                 setShowModal(false)
               }}
             >

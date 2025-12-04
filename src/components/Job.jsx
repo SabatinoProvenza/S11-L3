@@ -2,6 +2,7 @@ import { Row, Col, Modal, Button } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { addFavouriteAction, removeFavouriteAction } from "../redux/actions"
 
 const Job = ({ data }) => {
   const dispatch = useDispatch()
@@ -32,10 +33,7 @@ const Job = ({ data }) => {
             if (isFavourite) {
               setShowModal(true)
             } else {
-              dispatch({
-                type: "ADD_FAVOURITE",
-                payload: data.company_name,
-              })
+              dispatch(addFavouriteAction(data.company_name))
             }
           }}
         ></i>
@@ -66,10 +64,7 @@ const Job = ({ data }) => {
           <Button
             variant="danger"
             onClick={() => {
-              dispatch({
-                type: "REMOVE_FAVOURITE",
-                payload: data.company_name,
-              })
+              dispatch(removeFavouriteAction(data.company_name))
               setShowModal(false)
             }}
           >
