@@ -1,8 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit"
-import mainReducer from "../reducers"
+import favouritesReducer from "../reducers/favouritesReducer"
+import searchReducer from "../reducers/searchReducer"
 
 const store = configureStore({
-  reducer: mainReducer,
+  reducer: {
+    favourites: favouritesReducer,
+    search: searchReducer,
+  },
 })
 
 export default store

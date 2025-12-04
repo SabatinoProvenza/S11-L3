@@ -5,7 +5,7 @@ import { useState } from "react"
 import { removeFavouriteAction } from "../redux/actions"
 
 const Favourites = () => {
-  const favourites = useSelector((state) => state.prefs.content)
+  const favourites = useSelector((state) => state.favourites.content)
   const [selectedCompany, setSelectedCompany] = useState(null)
 
   const [showModal, setShowModal] = useState(false)

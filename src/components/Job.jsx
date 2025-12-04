@@ -6,7 +6,7 @@ import { addFavouriteAction, removeFavouriteAction } from "../redux/actions"
 
 const Job = ({ data }) => {
   const dispatch = useDispatch()
-  const favourites = useSelector((state) => state.prefs.content)
+  const favourites = useSelector((state) => state.favourites.content)
 
   // controlliamo se questa company è già nei preferiti
   const isFavourite = favourites.includes(data.company_name)
